@@ -84,3 +84,28 @@ Here you simply copy the contents of each field and execute it on the command li
 Time to prove that you actually own the domain. One way of doing this is uploading a special file in a designated location.
 
 
+
+
+
+
+
+
+
+
+
+## Create your pfx file from the cert and intermediate
+
+https://www.markbrilman.nl/2012/07/creating-a-pfx-file-with-chain/ 
+
+openssl pkcs12 -export -out account.pfx -inkey account.key -in chained.pem 
+
+openssl pkcs12 -export -out account.pfx -inkey certificate.key -in chained.pem
+
+
+
+
+
+
+
+
+
