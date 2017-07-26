@@ -1,13 +1,7 @@
 # Pin your certificate to your web site with the HTTP Public Key Pinning header
 
-## Resources
-
-https://news.netcraft.com/archives/2016/03/30/http-public-key-pinning-youre-doing-it-wrong.html
-
-
-
 So what is public key pinning? The **HTTP public key pinning** header can prevent fraudulent use of TLS certificates to impersonate valid web sites. Most **Man-in-the-middle (MITM)** attacks can be prevented by proper
-use of HTTPS and HSTS ([see my blog on HSTS)](http://blogs.u2u.be/peter/post/2017/07/02/enforce-https-everywhere-with-the-hsts-header.aspx)). However, if a hacker can convince a certificate authority to issue a fraudulent certificate for your web site, they can still spoof your website using a MITM attack. This is pretty hard, but not impossible [as history illustrates](https://en.wikipedia.org/wiki/DigiNotar).
+use of HTTPS and HSTS ([see my blog on HSTS)](http://blogs.u2u.be/peter/post/enforce-https-everywhere-with-the-hsts-header)). However, if a hacker can convince a certificate authority to issue a fraudulent certificate for your web site, they can still spoof your website using a MITM attack. This is pretty hard, but not impossible [as history illustrates](https://en.wikipedia.org/wiki/DigiNotar).
 
 When your server sends the HPKP header containing pinned certificate keys to the browser, these pins are then stored by said browser. Any future response (within a certain time-frame) from the same website not using one of these pinned keys is simply refused by the browser.
 
@@ -94,3 +88,7 @@ Public-Key-Pins: max-age=86400;
 Don't bother with the HPKP header over HTTP either, since browsers will ignore it in this case. The reason is simple: if a hacker could inject the HPKP header in a man-in-the-middle attack, it would be very easy to prevent users from accessing a web site.
 
 
+
+## Resources
+
+https://news.netcraft.com/archives/2016/03/30/http-public-key-pinning-youre-doing-it-wrong.html
