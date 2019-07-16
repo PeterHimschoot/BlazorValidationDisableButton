@@ -1,0 +1,53 @@
+﻿@page "/"
+<!-- Customer entry -->
+@*
+*@
+
+  <CustomerEntry1 Title="Please enter your details below"
+                  ButtonTitle="Checkout"
+                  ButtonClass="btn btn-primary"
+                  Customer="@Customer"
+                  Submit="@PlaceOrder" />
+
+@*
+  <CustomerEntry2 Title="Please enter your details below"
+                  ButtonTitle="Checkout"
+                  ButtonClass="btn btn-primary"
+                  Customer="@Customer"
+                  Submit="@PlaceOrder" />
+*@
+
+@*
+  <CustomerEntry3 Title="Please enter your details below"
+                  ButtonTitle="Checkout"
+                  ButtonClass="btn btn-primary"
+                  Customer="@Customer"
+                  CustomerChanged="UpdateUI"
+                  Submit="@PlaceOrder" />
+*@
+
+<!-- End customer entry -->
+
+<hr />
+
+<div>
+  @Customer.ToJson()
+</div>
+
+@code {
+
+  // private State State { get; set; } = new State { Customer = new Customer() };
+
+  private Customer Customer { get; set; } = new Customer();
+
+  private void UpdateUI()
+  {
+    this.StateHasChanged();
+  }
+
+  private void PlaceOrder()
+  {
+    Console.WriteLine("Placing order");
+  }
+
+}

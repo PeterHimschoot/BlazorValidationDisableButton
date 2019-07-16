@@ -1,0 +1,80 @@
+﻿<h1>@Title</h1>
+
+<EditForm OnValidSubmit="@Submit"
+          Model="@Customer">
+  <DataAnnotationsValidator />
+
+  <InputWatcher @ref="inputWatcher" FieldChanged="@FieldChanged" />
+
+  <div class="form-group row mb-1">
+    <label class="col-sm-3 col-form-label" for="FirstName">Name:</label>
+    <div class="col-sm-9">
+      <InputText class="form-control"
+                 @bind-Value="@Customer.Name" />
+      <ValidationMessage For="@(() => Customer.Name)" />
+    </div>
+  </div>
+  <div class="form-group row mb-1">
+    <label class="col-sm-3 col-form-label"
+           for="LastName">Street:</label>
+    <div class="col-sm-9">
+      <InputText class="form-control"
+                 @bind-Value="@Customer.Street" />
+      <ValidationMessage For="@(() => Customer.Street)" />
+    </div>
+  </div>
+  <div class="form-group row mb-1">
+    <label class="col-sm-3 col-form-label"
+           for="Birthday">City:</label>
+    <div class="col-sm-9">
+      <InputText class="form-control"
+                 @bind-Value="@Customer.City" />
+      <ValidationMessage For="@(() => Customer.City)" />
+    </div>
+  </div>
+  <div class="form-group mb-0">
+    <button disabled="@isInvalid" type="submit" id="BtnRegister" class="@ButtonClass">
+      @ButtonTitle
+    </button>
+  </div>
+</EditForm>
+
+<div>
+  @Customer.ToJson()
+</div>
+
+<div>
+  @isInvalid.ToJson()
+</div>
+
+@code {
+
+  [Parameter]
+  protected string Title { get; set; }
+
+  [Parameter]
+  protected string ButtonTitle { get; set; }
+
+  [Parameter]
+  protected string ButtonClass { get; set; }
+
+  [Parameter]
+  protected Customer Customer { get; set; }
+
+  [Parameter]
+  protected EventCallback<Customer> CustomerChanged { get; set; }
+
+  [Parameter]
+  protected EventCallback Submit { get; set; }
+
+  private InputWatcher inputWatcher;
+  private bool isInvalid = false;
+
+  private void FieldChanged(string fieldName)
+  {
+    Console.WriteLine($"*** {Customer.Name}");
+    isInvalid = !inputWatcher.Validate();
+    CustomerChanged.InvokeAsync(Customer);
+  }
+
+}
